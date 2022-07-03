@@ -1,7 +1,7 @@
-variaveis = ["a", "b"]
-letra = "c"
+a = "carro"
+b= "rr"
 
-if not letra in variaveis:
-    print("Não pertence")
-else:
+if b in a:
     print("pertence")
+else:
+    print("Não pertence")
