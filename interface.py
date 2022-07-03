@@ -16,21 +16,15 @@ def interface():
     for num_equacao in range(1, quantidade + 1):
         equacao = input(f"Digite a {num_equacao}ª equação: ")    
         equacoes.append(equacao)
-        caracteres = list(equacao)
-        for caractere in caracteres:
-            if caractere.isalpha():
-                if not caractere in variaveis:
-                    variaveis.append(caractere)
-        partes = equacao.split()
-        multiplo = []
-        for parte in partes:
-            for variavel in variaveis:
-                if variavel in parte:
-                    multiplo.append(parte)
-        multiplos.append(multiplos)
+
+        #Encontra as variáveis
+        encontra_variaveis(equacao, variaveis)
+        
+        #Encontra os múltiplos
+        encontra_multiplos(equacao,variaveis, multiplos)
+
+    print(variaveis)
     print(multiplos)
-
-
 
 def verifica_int(msg):
     while True:
@@ -44,3 +38,22 @@ def verifica_int(msg):
             else:
                 break #Se ele tiver sucesso, o programa segue normalmente.
     return inteiro
+
+
+def encontra_variaveis(equacao, variaveis_list):
+    caracteres = list(equacao)
+    for caractere in caracteres:
+        if caractere.isalpha():
+            if not caractere in variaveis_list:
+                variaveis_list.append(caractere)
+    return variaveis_list
+
+def encontra_multiplos(equacao, variaveis_list, multiplos_list):
+    partes = equacao.split()
+    multiplo = []
+    for parte in partes:
+        for variavel in variaveis_list:
+            if variavel in parte:
+                multiplo.append(parte)
+    return multiplos_list.append(multiplo)
+
