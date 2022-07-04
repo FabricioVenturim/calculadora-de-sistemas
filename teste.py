@@ -1,7 +1,3 @@
-a = "carro"
-b= "rr"
+A = "oi, eu gosto de gato"
 
-if b in a:
-    print("pertence")
-else:
-    print("Não pertence")
+print(A[5:])

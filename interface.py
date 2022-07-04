@@ -1,4 +1,5 @@
 from posixpath import split
+from re import X
 import numpy
 
 #O programa irá perguntar quantas equações tem
@@ -16,12 +17,9 @@ def interface():
     for num_equacao in range(1, quantidade + 1):
         equacao = input(f"Digite a {num_equacao}ª equação: ")    
         equacoes.append(equacao)
-
-        #Encontra as variáveis
         encontra_variaveis(equacao, variaveis)
-        
-        #Encontra os múltiplos
-        encontra_multiplos(equacao,variaveis, multiplos)
+
+    encontra_multiplos(equacoes,variaveis, multiplos)
 
     print(variaveis)
     print(multiplos)
@@ -48,12 +46,33 @@ def encontra_variaveis(equacao, variaveis_list):
                 variaveis_list.append(caractere)
     return variaveis_list
 
-def encontra_multiplos(equacao, variaveis_list, multiplos_list):
-    partes = equacao.split()
-    multiplo = []
-    for parte in partes:
+def encontra_multiplos(equacoes, variaveis_list, multiplos_list):
+    for equacao in equacoes:
+        partes = equacao.split()
+        numeros_da_equacao = []
         for variavel in variaveis_list:
-            if variavel in parte:
-                multiplo.append(parte)
-    return multiplos_list.append(multiplo)
+            if variavel in equacao:
+                for parte in partes:
+                    #Multiplos
+                    if variavel in parte:
+                        numero = parte
+                        corte = list(numero)
+                        for caracter in corte:
+                            if not caracter.isnumeric():
+                                numero = numero.replace(caracter, "")
+                        if numero == "":
+                            numero = 1
+                        if partes[partes.index(parte) - 1] == "-" or "-" in parte: # Para caso o - esteja junto ou separado
+                            numero = -1 * int(numero)
+                        numeros_da_equacao.append(int(numero))
+            else:
+                numeros_da_equacao.append(0)
+        #Constante
+        for caracter in equacao:
+            if caracter == "=":
+                constante = int(equacao[equacao.index(caracter) + 1:])
+                numeros_da_equacao.append(constante)
+
+        multiplos_list.append(numeros_da_equacao)
+    return  multiplos_list
 
