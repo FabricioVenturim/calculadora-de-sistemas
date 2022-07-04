@@ -1,12 +1,5 @@
-from posixpath import split
-from re import X
-import numpy
-
-#O programa irá perguntar quantas equações tem
-#O programa pedirá para a pessoa escrever as equações
-
-#O programa descobrirá quais são as variáveis
-#O programa pegará os números de cada variável
+import numpy as np
+import sistema
 
 def interface():
     quantidade = verifica_int("Quantas equações têm seu sitema? ")
@@ -20,9 +13,8 @@ def interface():
         encontra_variaveis(equacao, variaveis)
 
     encontra_multiplos(equacoes,variaveis, multiplos)
-
-    print(variaveis)
-    print(multiplos)
+    matrix = np.array(multiplos, dtype="double")
+    sistema.resolve_sistema(matrix, variaveis)
 
 def verifica_int(msg):
     while True:
@@ -44,7 +36,7 @@ def encontra_variaveis(equacao, variaveis_list):
         if caractere.isalpha():
             if not caractere in variaveis_list:
                 variaveis_list.append(caractere)
-    return variaveis_list
+
 
 def encontra_multiplos(equacoes, variaveis_list, multiplos_list):
     for equacao in equacoes:
@@ -74,5 +66,3 @@ def encontra_multiplos(equacoes, variaveis_list, multiplos_list):
                 numeros_da_equacao.append(constante)
 
         multiplos_list.append(numeros_da_equacao)
-    return  multiplos_list
-
