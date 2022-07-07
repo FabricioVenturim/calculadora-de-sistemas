@@ -13,8 +13,9 @@ def interface():
         encontra_variaveis(equacao, variaveis)
 
     encontra_multiplos(equacoes,variaveis, multiplos)
-    matrix = np.array(multiplos, dtype="double")
-    sistema.resolve_sistema(matrix, variaveis)
+    print(multiplos)
+    matriz = np.array(multiplos, dtype="double")
+    sistema.resolve_sistema(matriz, variaveis)
 
 def verifica_int(msg):
     while True:

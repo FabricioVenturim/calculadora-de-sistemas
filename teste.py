@@ -6,3 +6,7 @@ matrix = np.array([[6,3,2,1],
 
 for coluna in range(3, (len(matrix[0]) - 1)):
     print(coluna)
+
+2x + y + z = 8
+x + y + 4z = 15
+y + 2z = 9
