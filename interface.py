@@ -2,6 +2,8 @@ import numpy as np
 import sistema
 
 def interface():
+    """interface do programa: o usuário colocará a quantidade de equações e depois digitará ela. Após isso, o programa chamará o mêtodo sistema
+    """    
     quantidade_de_equacoes = verifica_int("Quantas equações têm seu sitema? ")
     equacoes = []
     variaveis = []
@@ -9,7 +11,7 @@ def interface():
     for num_equacao in range(1, quantidade_de_equacoes + 1):
         equacao = input(f"Digite a {num_equacao}ª equação: ")    
         equacoes.append(equacao)
-        encontra_variaveis(equacao, variaveis)
+    variaveis = encontra_variaveis(equacoes)
 
     #Verificar se a quantidade de variaveis é igual a quantidade de equações
     if len(variaveis) != quantidade_de_equacoes:
@@ -19,7 +21,16 @@ def interface():
         matriz = np.array(multiplos, dtype="double")
         sistema.resolve_sistema(matriz, variaveis)
 
+
 def verifica_int(msg):
+    """verifica se o caractere passado pelo usuário é um número inteiro positivo
+
+    Args:
+        msg (string): mensagem que aparecerá no terminal
+
+    Returns:
+        int: o inteiro passado pelo usuário
+    """    
     while True:
         try: #Ele tenta transformar a resposta do usuário em inteiro
             inteiro = int(input(msg))
@@ -33,14 +44,35 @@ def verifica_int(msg):
     return inteiro
 
 
-def encontra_variaveis(equacao, variaveis):
-    caracteres = list(equacao)
-    for caractere in caracteres:
-        if caractere.isalpha():
-            if not caractere in variaveis:
-                variaveis.append(caractere)
+def encontra_variaveis(equacoes):
+    """Encontra as variáveis presentes nas equações passadas
+
+    Args:
+        equacoes (list): lista com todas as equações passadas
+
+    Returns:
+        list: lista com as variáveis presentes nas equações passadas
+    """    
+    variaveis = []
+    for equacao in equacoes:
+        caracteres = list(equacao)
+        for caractere in caracteres:
+            if caractere.isalpha():
+                if not caractere in variaveis:
+                    variaveis.append(caractere)
+    return variaveis
+
 
 def encontra_multiplos(equacoes, variaveis_list):
+    """Encontra os multiplos de cada equação de acordo com cada variável
+
+    Args:
+        equacoes (list): lista com todas as equações passadas
+        variaveis_list (list): lista com as variáveis presentes nas equações passadas
+
+    Returns:
+        list: uma lista com os multiplos de cada equação de acordo com cada variável
+    """    
     multiplos_list = []
     for equacao in equacoes:
         partes = equacao.split()
@@ -62,11 +94,12 @@ def encontra_multiplos(equacoes, variaveis_list):
                         numeros_da_equacao.append(int(numero))
             else:
                 numeros_da_equacao.append(0)
+        
         #Constante
         for caracter in equacao:
             if caracter == "=":
                 constante = int(equacao[equacao.index(caracter) + 1:])
                 numeros_da_equacao.append(constante)
-
         multiplos_list.append(numeros_da_equacao)
+        
     return multiplos_list

@@ -1,6 +1,13 @@
 import numpy as np
 
 def resolve_sistema(matriz, variaveis):
+    """Função que resolve o sistema de equações
+
+    Args:
+        matriz (array): matriz formada a partir das equações
+        variaveis (lista): lista com as variáveis presentes nas equações passadas
+    """    
+
     #### Zera lado esquerdo ####
     linha_index = 0
     #passa linha por linha
@@ -16,13 +23,14 @@ def resolve_sistema(matriz, variaveis):
             matriz[linha_index] = matriz[linha_index]/matriz[linha_index, linha_index] 
         linha_index += 1 
     linha_index -= 1
+    
     #### Analisar a quantidade de soluções do sistema
     if matriz[linha_index, linha_index] == 0 and matriz[linha_index, linha_index + 1] == 0:
         print("O sistema de equações possui infinitas soluções")
     elif matriz[linha_index, linha_index] == 0:
         print("O sistema de equações é impossível")
-    else: 
-        #### Zera lado direio ####
+    
+    else: #### Zera lado direio ####
         #Agora vamos escalonar de baixo para cima
         # linha_index = len(matriz) - 1
         while linha_index >= 0:
