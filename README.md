@@ -11,7 +11,7 @@ Uma matriz está na forma escalonada reduzida quando ela satisfaz as seguintes c
 
 ## Utilização
 
-1. Rode o comando pip install -r requirements.txt para baixar todas as dependências necessárias.
+1. Rode o comando `pip install -r requirements.txt` para baixar todas as dependências necessárias.
 2. para executar o programa, rode o arquivo `main.py` 
 
 O programa pedirá ao usuário a quantidade de equações que possui o sistema.
